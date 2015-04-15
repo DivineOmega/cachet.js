@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title><!-- cachet.js examples --></title>
+    </head>
+    
+    <body>
+        
+        <h1><!-- cachet.js examples --></h1>
+        
+        <h2>All Components</h2>
+        
+        <ul id="components"></ul>
+        
+        <h2>Single Component by ID</h2>
+        
+        <ul id="component"></ul>
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <script src="cachet.js"></script>
+        
+        <script>
+            
+            // Create a cachetjs object
+            var cachetjs = new cachetjs;
+            
+            // Set the base URL for your cachet instance API
+            cachetjs.setBaseURL('https://demo.cachethq.io/api/');
+            
+            // Get all components for this cachet instance
+            cachetjs.getComponents(function(components)
+            {
+                var html = '';
+                
+                for (var i = 0; i < components.length; i++)
+                {
+                    html += '<li> ID ' + components[i].id + ' - ' + components[i].name + ' ';
+                    if (components[i].description) html += ' - ' + components[i].description;
+                    html += '</li>';
+                }
+                
+                $('#components').html(html); 
+                
+            });
+            
+            // Get a components by ID
+            var id = 1;
+            cachetjs.getComponentByID(id, function(component)
+            {
+                html = '';
+                
+                html += '<li>ID: ' + component.id + '</li>';
+                html += '<li>Name: ' + component.name + '</li>';
+                if (component.description) html += '<li>Description: ' + component.description + '</li>';
+                
+                $('#component').html(html); 
+                
+            });
+            
+        </script>
+        
+    </body>
+
+</html> 
