@@ -20,11 +20,21 @@ function cachetjs()
         this.password = password;
     };
     
-    this.sanityCheck = function()
+    this.sanityCheck = function(authorisationRequired)
     {
         if (!this.baseURL)
         {
-            console.log('cachet.js: No base URL set for your cachet instance. Set one with the setBaseURL method.');
+            console.log('cachet.js: The base URL is not set for your cachet instance. Set one with the setBaseURL method.');
+            return false;
+        }
+        else if (authorisationRequired && !this.email)
+        {
+            console.log('cachet.js: The email is not set for your cachet instance. Set one with the setEmail method.');
+            return false;
+        }
+        else if (authorisationRequired && !this.password)
+        {
+            console.log('cachet.js: The password is not set for your cachet instance. Set one with the setPassword method.');
             return false;
         }
         else
@@ -35,7 +45,7 @@ function cachetjs()
     
     this.getComponents = function(callback)
     {
-        if (!this.sanityCheck()) return;
+        if (!this.sanityCheck(false)) return;
         
         var url = this.baseURL + 'components';
         
@@ -48,7 +58,7 @@ function cachetjs()
             callback(data);
         };
         
-        var options = { url: url, success: successCallback, username: this.email, password: this.password };
+        var options = { url: url, success: successCallback };
         
         $.ajax(options);
         
@@ -56,7 +66,7 @@ function cachetjs()
     
     this.getComponentByID = function(id, callback)
     {
-        if (!this.sanityCheck()) return;
+        if (!this.sanityCheck(false)) return;
         
         if (!id)
         {
@@ -75,7 +85,36 @@ function cachetjs()
             callback(data);
         };
         
-        var options = { url: url, success: successCallback, username: this.email, password: this.password };
+        var options = { url: url, success: successCallback };
+        
+        $.ajax(options);
+        
+    };
+    
+    this.setComponentStatusByID = function(id, status, callback)
+    {
+        if (!this.sanityCheck(true)) return;
+        
+        if (!id)
+        {
+            console.log('cachet.js: You attempted to set a component status by ID without specifying an ID.');
+            return;
+        }
+        
+        var url = this.baseURL + 'components/'+id;
+        
+        var result = null;
+        
+        var successCallback = function(data)
+        {
+            if (data.data) data = data.data; // Remove the 'data' top level JSON element if present
+            
+            callback(data);
+        };
+        
+        var requestData = 'status='+status;
+        
+        var options = { url: url, method: 'PUT', data: requestData, success: successCallback, headers: {"Authorization": "Basic " + btoa(this.email + ":" + this.password)} };
         
         $.ajax(options);
         
