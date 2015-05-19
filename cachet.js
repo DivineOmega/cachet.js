@@ -22,7 +22,11 @@ function cachetjs()
     
     this.sanityCheck = function(authorisationRequired)
     {
-        if (!this.baseURL)
+        if (!window.jQuery)
+        {
+            console.log('cachet.js: jQuery does not appear to be loaded. Please include it!');
+        }
+        else if (!this.baseURL)
         {
             console.log('cachet.js: The base URL is not set for your cachet instance. Set one with the setBaseURL method.');
             return false;
