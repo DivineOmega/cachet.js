@@ -53,8 +53,6 @@ function cachetjs()
         
         var url = this.baseURL + 'components';
         
-        var result = null;
-        
         var successCallback = function(data)
         {
             if (data.data) data = data.data; // Remove the 'data' top level JSON element if present
@@ -79,8 +77,6 @@ function cachetjs()
         }
         
         var url = this.baseURL + 'components/'+id;
-        
-        var result = null;
         
         var successCallback = function(data)
         {
@@ -107,8 +103,6 @@ function cachetjs()
         
         var url = this.baseURL + 'components/'+id;
         
-        var result = null;
-        
         var successCallback = function(data)
         {
             if (data.data) data = data.data; // Remove the 'data' top level JSON element if present
@@ -129,8 +123,6 @@ function cachetjs()
         if (!this.sanityCheck(false)) return;
         
         var url = this.baseURL + 'incidents';
-        
-        var result = null;
         
         var successCallback = function(data)
         {
@@ -157,8 +149,6 @@ function cachetjs()
         
         var url = this.baseURL + 'incidents/'+id;
         
-        var result = null;
-        
         var successCallback = function(data)
         {
             if (data.data) data = data.data; // Remove the 'data' top level JSON element if present
@@ -177,8 +167,6 @@ function cachetjs()
         if (!this.sanityCheck(false)) return;
         
         var url = this.baseURL + 'metrics';
-        
-        var result = null;
         
         var successCallback = function(data)
         {
@@ -204,8 +192,6 @@ function cachetjs()
         }
         
         var url = this.baseURL + 'metrics/'+id;
-        
-        var result = null;
         
         var successCallback = function(data)
         {
