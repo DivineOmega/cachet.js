@@ -123,4 +123,100 @@ function cachetjs()
         $.ajax(options);
         
     };
+    
+    this.getIncidents = function(callback)
+    {
+        if (!this.sanityCheck(false)) return;
+        
+        var url = this.baseURL + 'incidents';
+        
+        var result = null;
+        
+        var successCallback = function(data)
+        {
+            if (data.data) data = data.data; // Remove the 'data' top level JSON element if present
+            
+            callback(data);
+        };
+        
+        var options = { url: url, success: successCallback };
+        
+        $.ajax(options);
+        
+    };
+    
+    this.getIncidentByID = function(id, callback)
+    {
+        if (!this.sanityCheck(false)) return;
+        
+        if (!id)
+        {
+            console.log('cachet.js: You attempted to retrieve an incident by ID without specifying an ID.');
+            return;
+        }
+        
+        var url = this.baseURL + 'incidents/'+id;
+        
+        var result = null;
+        
+        var successCallback = function(data)
+        {
+            if (data.data) data = data.data; // Remove the 'data' top level JSON element if present
+            
+            callback(data);
+        };
+        
+        var options = { url: url, success: successCallback };
+        
+        $.ajax(options);
+        
+    };
+    
+    this.getMetrics = function(callback)
+    {
+        if (!this.sanityCheck(false)) return;
+        
+        var url = this.baseURL + 'metrics';
+        
+        var result = null;
+        
+        var successCallback = function(data)
+        {
+            if (data.data) data = data.data; // Remove the 'data' top level JSON element if present
+            
+            callback(data);
+        };
+        
+        var options = { url: url, success: successCallback };
+        
+        $.ajax(options);
+        
+    };
+    
+    this.getMetricByID = function(id, callback)
+    {
+        if (!this.sanityCheck(false)) return;
+        
+        if (!id)
+        {
+            console.log('cachet.js: You attempted to retrieve an incident by ID without specifying an ID.');
+            return;
+        }
+        
+        var url = this.baseURL + 'metrics/'+id;
+        
+        var result = null;
+        
+        var successCallback = function(data)
+        {
+            if (data.data) data = data.data; // Remove the 'data' top level JSON element if present
+            
+            callback(data);
+        };
+        
+        var options = { url: url, success: successCallback };
+        
+        $.ajax(options);
+        
+    };
 }

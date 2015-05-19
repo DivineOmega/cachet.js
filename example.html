@@ -1,20 +1,22 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title><!-- cachet.js examples --></title>
+        <title>cachet.js examples</title>
     </head>
     
     <body>
         
-        <h1><!-- cachet.js examples --></h1>
+        <h1>cachet.js examples</h1>
+        
+        <hr/>
         
         <h2>Get All Components</h2>
         
-        <ul id="components"></ul>
+        <ul id="components">Loading...</ul>
         
-        <h2>Get Single Component by ID</h2>
+        <h2>Get incidents Component by ID</h2>
         
-        <ul id="component"></ul>
+        <ul id="component">Loading...</ul>
         
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
         <script src="cachet.js"></script>
@@ -33,7 +35,27 @@
             <input type="submit" value="Update" id="update_button" />
         </p>
         
-        <ul id="updated_component"></ul>
+        <ul id="updated_component">Not loaded.</ul>
+        
+        <hr/>
+        
+        <h2>Get All Incidents</h2>
+        
+        <ul id="incidents">Loading...</ul>
+        
+        <h2>Get Single Incident by ID</h2>
+        
+        <ul id="incident">Loading...</ul>
+        
+        <hr/>
+        
+        <h2>Get All Metrics</h2>
+        
+        <ul id="metrics">Loading...</ul>
+        
+        <h2>Get Single Metric by ID</h2>
+        
+        <ul id="metric">Loading...</ul>
         
         <script>
             
@@ -65,10 +87,9 @@
             });
             
             // Get a components by ID
-            var id = 1;
-            cachetjs.getComponentByID(id, function(component)
+            cachetjs.getComponentByID(1, function(component)
             {
-                html = '';
+                var html = '';
                 
                 html += '<li>ID: ' + component.id + '</li>';
                 html += '<li>Name: ' + component.name + '</li>';
@@ -93,6 +114,66 @@
                     $('#updated_component').html(html); 
                     
                 });
+            });
+            
+            // Get all incidents for this cachet instance
+            cachetjs.getIncidents(function(incidents)
+            {
+                var html = '';
+                
+                for (var i = 0; i < incidents.length; i++)
+                {
+                    html += '<li> ID ' + incidents[i].id + ' - ' + incidents[i].name + ' ';
+                    if (incidents[i].message) html += ' - ' + incidents[i].message;
+                    html += ' - ' + incidents[i].human_status;
+                    html += '</li>';
+                }
+                
+                $('#incidents').html(html); 
+                
+            });
+            
+            // Get an incident by ID
+            cachetjs.getIncidentByID(2, function(incident)
+            {
+                var html = '';
+                
+                html += '<li>ID: ' + incident.id + '</li>';
+                html += '<li>Name: ' + incident.name + '</li>';
+                if (incident.message) html += '<li>Description: ' + incident.message + '</li>';
+                html += '<li>Status: ' + incident.human_status + '</li>';
+                
+                $('#incident').html(html); 
+                
+            });
+            
+            // Get all metrics for this cachet instance
+            cachetjs.getMetrics(function(metrics)
+            {
+                var html = '';
+                
+                for (var i = 0; i < metrics.length; i++)
+                {
+                    html += '<li> ID ' + metrics[i].id + ' - ' + metrics[i].name + ' ';
+                    if (metrics[i].description) html += ' - ' + metrics[i].description;
+                    html += '</li>';
+                }
+                
+                $('#metrics').html(html); 
+                
+            });
+            
+            // Get a metric by ID
+            cachetjs.getMetricByID(1, function(metric)
+            {
+                var html = '';
+                
+                html += '<li>ID: ' + metric.id + '</li>';
+                html += '<li>Name: ' + metric.name + '</li>';
+                if (metric.message) html += '<li>Description: ' + metric.message + '</li>';
+                
+                $('#metric').html(html); 
+                
             });
             
         </script>
