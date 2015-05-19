@@ -1,0 +1,30 @@
+{
+  "name": "cachet.js",
+  "main": "cachet.js",
+  "version": "1.0.0",
+  "homepage": "https://github.com/DivineOmega/cachet.js",
+  "authors": [
+    "Jordan Hall <jordan@hall05.co.uk>"
+  ],
+  "description": "cachet.js is a JavaScript client library for the Cachet status page",
+  "keywords": [
+    "cachet",
+    "javascript",
+    "js",
+    "library",
+    "api",
+    "cachet",
+    "status",
+    "cachet",
+    "status",
+    "page"
+  ],
+  "license": "GPL3",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
