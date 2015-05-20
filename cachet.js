@@ -47,11 +47,16 @@ function cachetjs()
         }
     };
     
-    this.getComponents = function(callback)
+    this.get = function(type, callback)
     {
+        if (type!=='components' && type!=='incidents' && type!=='metrics')
+        {
+            console.log('cachet.js: Invalid type specfied. Must be \'components\', \'incidents\' or \'metrics\'.');
+        }
+        
         if (!this.sanityCheck(false)) return;
         
-        var url = this.baseURL + 'components';
+        var url = this.baseURL + type;
         
         var successCallback = function(data)
         {
@@ -66,17 +71,16 @@ function cachetjs()
         
     };
     
-    this.getComponentByID = function(id, callback)
+    this.getByID = function(type, id, callback)
     {
-        if (!this.sanityCheck(false)) return;
-        
-        if (!id)
+        if (type!=='components' && type!=='incidents' && type!=='metrics')
         {
-            console.log('cachet.js: You attempted to retrieve a component by ID without specifying an ID.');
-            return;
+            console.log('cachet.js: Invalid type specfied. Must be \'components\', \'incidents\' or \'metrics\'.');
         }
         
-        var url = this.baseURL + 'components/'+id;
+        if (!this.sanityCheck(false)) return;
+        
+        var url = this.baseURL + type + '/' + id;
         
         var successCallback = function(data)
         {
@@ -88,7 +92,16 @@ function cachetjs()
         var options = { url: url, success: successCallback };
         
         $.ajax(options);
-        
+    };
+    
+    this.getComponents = function(callback)
+    {
+        this.get('components', callback);
+    };
+    
+    this.getComponentByID = function(id, callback)
+    {
+        this.getByID('components', id, callback);
     };
     
     this.setComponentStatusByID = function(id, status, callback)
@@ -120,89 +133,21 @@ function cachetjs()
     
     this.getIncidents = function(callback)
     {
-        if (!this.sanityCheck(false)) return;
-        
-        var url = this.baseURL + 'incidents';
-        
-        var successCallback = function(data)
-        {
-            if (data.data) data = data.data; // Remove the 'data' top level JSON element if present
-            
-            callback(data);
-        };
-        
-        var options = { url: url, success: successCallback };
-        
-        $.ajax(options);
-        
+        this.get('incidents', callback);
     };
     
     this.getIncidentByID = function(id, callback)
     {
-        if (!this.sanityCheck(false)) return;
-        
-        if (!id)
-        {
-            console.log('cachet.js: You attempted to retrieve an incident by ID without specifying an ID.');
-            return;
-        }
-        
-        var url = this.baseURL + 'incidents/'+id;
-        
-        var successCallback = function(data)
-        {
-            if (data.data) data = data.data; // Remove the 'data' top level JSON element if present
-            
-            callback(data);
-        };
-        
-        var options = { url: url, success: successCallback };
-        
-        $.ajax(options);
-        
+        this.getByID('incidents', id, callback);
     };
     
     this.getMetrics = function(callback)
     {
-        if (!this.sanityCheck(false)) return;
-        
-        var url = this.baseURL + 'metrics';
-        
-        var successCallback = function(data)
-        {
-            if (data.data) data = data.data; // Remove the 'data' top level JSON element if present
-            
-            callback(data);
-        };
-        
-        var options = { url: url, success: successCallback };
-        
-        $.ajax(options);
-        
+        this.get('metrics', callback);
     };
     
     this.getMetricByID = function(id, callback)
     {
-        if (!this.sanityCheck(false)) return;
-        
-        if (!id)
-        {
-            console.log('cachet.js: You attempted to retrieve an incident by ID without specifying an ID.');
-            return;
-        }
-        
-        var url = this.baseURL + 'metrics/'+id;
-        
-        var successCallback = function(data)
-        {
-            if (data.data) data = data.data; // Remove the 'data' top level JSON element if present
-            
-            callback(data);
-        };
-        
-        var options = { url: url, success: successCallback };
-        
-        $.ajax(options);
-        
+        this.getByID('metrics', id, callback);
     };
 }
