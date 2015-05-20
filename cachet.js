@@ -1,9 +1,9 @@
 
 function cachetjs()
 {
-    var baseURL = '';
-    var email = '';
-    var password = '';
+    this.baseURL = '';
+    this.email = '';
+    this.password = '';
     
     this.setBaseURL = function(baseURL)
     {
@@ -54,13 +54,19 @@ function cachetjs()
             console.log('cachet.js: Invalid type specfied. Must be \'components\', \'incidents\' or \'metrics\'.');
         }
         
-        if (!this.sanityCheck(false)) return;
+        if (!this.sanityCheck(false))
+        {
+            return;
+        }
         
         var url = this.baseURL + type;
         
         var successCallback = function(data)
         {
-            if (data.data) data = data.data; // Remove the 'data' top level JSON element if present
+            if (data.data)
+            {
+                data = data.data; // Remove the 'data' top level JSON element if present
+            }
             
             callback(data);
         };
@@ -78,13 +84,19 @@ function cachetjs()
             console.log('cachet.js: Invalid type specfied. Must be \'components\', \'incidents\' or \'metrics\'.');
         }
         
-        if (!this.sanityCheck(false)) return;
+        if (!this.sanityCheck(false))
+        {
+            return;
+        }
         
         var url = this.baseURL + type + '/' + id;
         
         var successCallback = function(data)
         {
-            if (data.data) data = data.data; // Remove the 'data' top level JSON element if present
+            if (data.data) 
+            {
+                data = data.data; // Remove the 'data' top level JSON element if present
+            }
             
             callback(data);
         };
@@ -106,7 +118,10 @@ function cachetjs()
     
     this.setComponentStatusByID = function(id, status, callback)
     {
-        if (!this.sanityCheck(true)) return;
+        if (!this.sanityCheck(true))
+        {
+            return;   
+        }
         
         if (!id)
         {
@@ -118,7 +133,10 @@ function cachetjs()
         
         var successCallback = function(data)
         {
-            if (data.data) data = data.data; // Remove the 'data' top level JSON element if present
+            if (data.data)
+            {
+                data = data.data; // Remove the 'data' top level JSON element if present
+            }
             
             callback(data);
         };
