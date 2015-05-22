@@ -65,9 +65,10 @@
             // Set the base URL for your cachet instance API
             cachetjs.setBaseURL('https://demo.cachethq.io/api/v1/');
             
-            // If you need to change things, you need to provide the email and password you user to log in to the Cachet dashboard
-            cachetjs.setEmail('test@test.com');
-            cachetjs.setPassword('test123');
+            // If you need to change things, you need to provide your apiToken or the email and password you use to log in to the Cachet dashboard
+            cachetjs.setApiToken('9yMHsdioQosnyVK4iCVR');
+            //cachetjs.setEmail('test@test.com');
+            //cachetjs.setPassword('test123');
             
             // Get all components for this cachet instance
             cachetjs.getComponents(function(components)

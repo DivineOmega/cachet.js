@@ -4,6 +4,7 @@ function cachetjs()
     this.baseURL = '';
     this.email = '';
     this.password = '';
+    this.apiToken = '';
     
     this.setBaseURL = function(baseURL)
     {
@@ -20,6 +21,11 @@ function cachetjs()
         this.password = password;
     };
     
+    this.setApiToken = function(apiToken)
+    {
+        this.apiToken = apiToken;
+    };
+    
     this.sanityCheck = function(authorisationRequired)
     {
         if (!window.jQuery)
@@ -31,14 +37,9 @@ function cachetjs()
             console.log('cachet.js: The base URL is not set for your cachet instance. Set one with the setBaseURL method.');
             return false;
         }
-        else if (authorisationRequired && !this.email)
+        else if (authorisationRequired && (!this.apiToken && (!this.email || !this.password)))
         {
-            console.log('cachet.js: The email is not set for your cachet instance. Set one with the setEmail method.');
-            return false;
-        }
-        else if (authorisationRequired && !this.password)
-        {
-            console.log('cachet.js: The password is not set for your cachet instance. Set one with the setPassword method.');
+            console.log('cachet.js: The apiToken is not set for your cachet instance. Set one with the setApiToken method. Alternatively, set your email and password with the setEmail and setPassword methods respectively.');
             return false;
         }
         else
@@ -144,6 +145,11 @@ function cachetjs()
         var requestData = 'status='+status;
         
         var options = { url: url, method: 'PUT', data: requestData, success: successCallback, headers: {"Authorization": "Basic " + btoa(this.email + ":" + this.password)} };
+        
+        if (this.apiToken)
+        {
+            options = { url: url, method: 'PUT', data: requestData, success: successCallback, headers: {"X-Cachet-Token": this.apiToken} };
+        }
         
         $.ajax(options);
         
